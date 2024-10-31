@@ -20,7 +20,9 @@ public class CameraFollow : MonoBehaviour
             Target = GameObject.FindWithTag(TargetTag).transform;
         }
     }
-
+    private void OnEnable() {
+        Camera.SetupCurrent(_cam);
+    }
     IEnumerator<WaitForSeconds> FocusOn(Transform focusTarget, float switchDuration, float focusDuration, float zoomSize, bool isFollow)
     {
         StopFollow();
@@ -83,7 +85,7 @@ public class CameraFollow : MonoBehaviour
     {
         _isFollow = false;
     }
-    private void LateUpdate() {
+    private void FixedUpdate() {
         
         if(Target && _isFollow)
         {
