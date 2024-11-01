@@ -14,30 +14,37 @@ public class Magic : NetworkBehaviour {
 
     public void Use()
     {
-        
+        if(!available)
+            return;
         lastUseTime = Time.time;
         _living = true;
         MagicStart();
     }
+    private void OnEnable() {
+        lastUseTime = Time.time - coolTime;
+    }
     protected virtual void MagicStart()
-    {
-
+    {   
     }
     protected virtual void MagicUpdate()
     {
-
     }
-    void Start()
+    protected virtual void MagicEnd()
     {
-        MagicStart();
+        _living = false;
     }
     void Update()
     {
         if(_living)
             MagicUpdate();
+            
         if(Time.time - lastUseTime > coolTime)
         {
             available = true;
+        }
+        else
+        {
+            available = false;
         }
         
     }

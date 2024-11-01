@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
     {
         _cam = GetComponent<Camera>();
         if(Target == null){
-            Target = GameObject.FindWithTag(TargetTag).transform;
+            Target = GameObject.FindWithTag(TargetTag)?.transform;
         }
     }
     private void OnEnable() {
