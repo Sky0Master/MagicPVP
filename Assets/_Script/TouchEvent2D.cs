@@ -6,8 +6,10 @@ using UnityEngine.Events;
 public class TouchEvent2D : MonoBehaviour
 {
     public UnityEvent onTouch;
+    public string touchTag = "Player";
+
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag == "Player")
+        if(touchTag == "" || other.tag == touchTag)
         {
             onTouch?.Invoke();
         }
