@@ -24,6 +24,8 @@ public class Projectile2D : NetworkBehaviour
     {
         
     }
+
+    
     public void Lauch(Vector2 direction)
     {
         OnShoot();
@@ -32,7 +34,6 @@ public class Projectile2D : NetworkBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Time.time - _stTime >= duration)
