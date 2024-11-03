@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -6,10 +5,19 @@ using UnityEngine;
 namespace VinoUtility{
 public static class TransformExt
 {
-
+    /// <summary>
+    /// 获取从当前Transform指向鼠标位置的2D向量
+    /// </summary>
+    /// <param name="invoker"></param>
+    /// <returns></returns>
+    public static Vector2 GetMouseVector2(this Transform invoker)
+    {
+        var pos = Camera.current.ScreenToWorldPoint(Input.mousePosition);
+        return (Vector2)pos - (Vector2)invoker.position;
+    }
     public static void DestroyAllChildrenEditor(this Transform invoker)
     {
-        var pa = (Transform)invoker;
+        var pa = invoker;
         var children = GetAllChildren(pa);
         foreach (var child in children)
         {
@@ -18,7 +26,7 @@ public static class TransformExt
     }
     public static void MakeChildrenInLine(this Transform invoker, float dist = 1f)
     {
-        var pa = (Transform)invoker;
+        var pa = invoker;
         var children = GetActiveChildren(pa);
         for (int i = 0; i < children.Count; i++)
         {

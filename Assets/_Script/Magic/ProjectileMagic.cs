@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Mirror;
 using ParrelSync;
 using UnityEngine;
+using VinoUtility;
 
 public class ProjectileMagic : Magic
 {
@@ -16,23 +17,20 @@ public class ProjectileMagic : Magic
     
     protected override void MagicStart()
     {
-        GenerateProjectile(_generatePos.position, Vector2.right);
-
+        _direction = transform.GetMouseVector2().normalized;
+        GenerateProjectile(_generatePos.position, _direction);
+        _living = false;
     }
-    [ClientRpc]
-    void PlayAnimation()
+    private void PlayAnimation()
     {
         
     }
-    
-
     [Command]
     public void GenerateProjectile(Vector2 pos, Vector2 dir)
     {
         var go = Instantiate(_projectilePrefab);
         go.transform.position = pos;
         go.transform.right = dir;
-        NetworkServer.Spawn(go);
         var p = go.GetComponent<Projectile2D>();
         p.Lauch(dir);
     }

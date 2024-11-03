@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-[RequireComponent(typeof(NetworkRigidbodyReliable2D))]
 public class Projectile2D : NetworkBehaviour
 {
     public float speed = 1f;
@@ -16,16 +15,19 @@ public class Projectile2D : NetworkBehaviour
         _rb.isKinematic = true;
         _rb.Sleep();
     }
+    protected virtual void PlayDestroyAnimation()
+    {
+        
+    }
     protected virtual void OnShoot()
     {
 
     }
     protected virtual void OnDestroy()
     {
+        PlayDestroyAnimation();
         
     }
-
-    
     public void Lauch(Vector2 direction)
     {
         OnShoot();
@@ -34,6 +36,7 @@ public class Projectile2D : NetworkBehaviour
         
     }
 
+    // Update is called once per frame
     void Update()
     {
         if(Time.time - _stTime >= duration)
