@@ -6,11 +6,13 @@ public class SteamLobby : MonoBehaviour
 {
     public GameObject hostBtn;
 
-    // Calback¼àÌıSteamworksÊÇ·ñ´´½¨´óÌü
+    public UISteamLobby uISteamLobby;
+
+    // Calbackç›‘å¬Steamworksæ˜¯å¦åˆ›å»ºå¤§å…
     protected Callback<LobbyCreated_t> lobbyCreated;
-    // ÔÚSteamÉÏÑûÇë¼ÓÈëÓÎÏ·»òÖ±½Ó¼ÓÈëÓÎÏ·Ê±¶¼»á´¥·¢¸ÃCallback
+    // åœ¨Steamä¸Šé‚€è¯·åŠ å…¥æ¸¸æˆæˆ–ç›´æ¥åŠ å…¥æ¸¸æˆæ—¶éƒ½ä¼šè§¦å‘è¯¥Callback
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
-    // ¼àÌıÍæ¼Ò½øÈë´óÌü
+    // ç›‘å¬ç©å®¶è¿›å…¥å¤§å…
     protected Callback<LobbyEnter_t> lobbyEnter;
 
     private NetworkManager networkManager;
@@ -22,24 +24,25 @@ public class SteamLobby : MonoBehaviour
 
         if (!SteamManager.Initialized) { return; }
 
-        // 2. ¶¨Òå¼àÌı£¬µ±·¢ÉúÁË´óÌü´´½¨CallbackÊÂ¼şºó£¬Òªµ÷ÓÃÊ²Ã´º¯Êı
+        // 2. å®šä¹‰ç›‘å¬ï¼Œå½“å‘ç”Ÿäº†å¤§å…åˆ›å»ºCallbackäº‹ä»¶åï¼Œè¦è°ƒç”¨ä»€ä¹ˆå‡½æ•°
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEnter = Callback<LobbyEnter_t>.Create(OnLobbyEnter);
+        //Callback<LobbyKicked_t>.Create(OnLobbyKicked);
     }
 
-    // 1. °´Å¥µã»÷£¬¿ªÊ¼´´½¨´óÌü
+    // 1. æŒ‰é’®ç‚¹å‡»ï¼Œå¼€å§‹åˆ›å»ºå¤§å…
     public void HostLobby()
     {
         hostBtn.SetActive(false);
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections);
     }
 
-    // 3. ÎŞÂÛ´óÌü³É¹¦´´½¨Óë·ñ£¬¶¼»áµ÷ÓÃ´Ëº¯Êı
-    // LobbyCreated_t²ÎÊıÎª±ØÒªÏî£¬´«ÈëÈ«²¿¹ØÓÚ´óÌüµÄÊı¾İ
+    // 3. æ— è®ºå¤§å…æˆåŠŸåˆ›å»ºä¸å¦ï¼Œéƒ½ä¼šè°ƒç”¨æ­¤å‡½æ•°
+    // LobbyCreated_tå‚æ•°ä¸ºå¿…è¦é¡¹ï¼Œä¼ å…¥å…¨éƒ¨å…³äºå¤§å…çš„æ•°æ®
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
-        // Èç¹û´óÌü´´½¨Ê§°Ü£¬ÖØĞÂÏÔÊ¾°´Å¥
+        // å¦‚æœå¤§å…åˆ›å»ºå¤±è´¥ï¼Œé‡æ–°æ˜¾ç¤ºæŒ‰é’®
         if (callback.m_eResult != EResult.k_EResultOK)
         {
             hostBtn.SetActive(true);
@@ -47,47 +50,53 @@ public class SteamLobby : MonoBehaviour
             return;
         }
 
-        // ³É¹¦Ê±£¬ÔÚMirrorÉÏ³ÉÎªHost
-        // Ê¹ÓÃMirror½øĞĞÆÕÍ¨´«Êä£¬IPµØÖ·½«×÷ÎªÍøÂçµØÖ·
-        // Ê¹ÓÃSteam´«ÊäÊ±£¬´«ÊäµÄÊÇSteam ID
+        // æˆåŠŸæ—¶ï¼Œåœ¨Mirrorä¸Šæˆä¸ºHost
+        // ä½¿ç”¨Mirrorè¿›è¡Œæ™®é€šä¼ è¾“ï¼ŒIPåœ°å€å°†ä½œä¸ºç½‘ç»œåœ°å€
+        // ä½¿ç”¨Steamä¼ è¾“æ—¶ï¼Œä¼ è¾“çš„æ˜¯Steam ID
         networkManager.StartHost();
 
-        // ÈÎºÎ½øÈë´óÌüµÄÈË£¬¶¼¿ÉÒÔÍ¨¹ı»ñÈ¡HostAddressKey£¬À´»ñÈ¡ÎÒÃÇµÄSteamID
-        // ²ÎÊıÒ»£º¸æÖªSteam´óÌüµÄID (CSteamIDÀàĞÍ)
-        // ²ÎÊı¶ş£º´«ÈëÒ»¸öKey£¬Ö¸ÏòValue£¬ÀàËÆ×ÖµäµÄ×÷ÓÃ
-        // ²ÎÊıÈı£º´«ÈëÒ»¸öValue£¬´óÌüËùÓĞÕßµÄSteamID
+        // ä»»ä½•è¿›å…¥å¤§å…çš„äººï¼Œéƒ½å¯ä»¥é€šè¿‡è·å–HostAddressKeyï¼Œæ¥è·å–æˆ‘ä»¬çš„SteamID
+        // å‚æ•°ä¸€ï¼šå‘ŠçŸ¥Steamå¤§å…çš„ID (CSteamIDç±»å‹)
+        // å‚æ•°äºŒï¼šä¼ å…¥ä¸€ä¸ªKeyï¼ŒæŒ‡å‘Valueï¼Œç±»ä¼¼å­—å…¸çš„ä½œç”¨
+        // å‚æ•°ä¸‰ï¼šä¼ å…¥ä¸€ä¸ªValueï¼Œå¤§å…æ‰€æœ‰è€…çš„SteamID
         SteamMatchmaking.SetLobbyData(
             new CSteamID(callback.m_ulSteamIDLobby),
             HostAddressKey,
             SteamUser.GetSteamID().ToString());
 
-        Debug.LogError("Lobby created.");
+        uISteamLobby.AddNewPlayerDisplay(SteamUser.GetSteamID(), SteamFriends.GetPersonaName());
+        //Debug.LogError("Lobby created.");
     }
 
     private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
-        // ´«ÈëLobby ID
+        // ä¼ å…¥Lobby ID
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby); 
     }
 
     private void OnLobbyEnter(LobbyEnter_t callback)
     {
-        // Èç¹ûÊÇÖ÷»ú£¬Ö±½Ó·µ»Ø
-        if (NetworkServer.active) { return; }
+        // å¦‚æœæ˜¯ä¸»æœºï¼Œç›´æ¥è¿”å›
+        if (NetworkServer.active) { 
+            return; 
+        }
 
         string playerName = SteamFriends.GetPersonaName();
         string playerID = SteamUser.GetSteamID().ToString();
+        uISteamLobby.AddNewPlayerDisplay(SteamUser.GetSteamID(), playerName);
         Debug.LogError($"Player {playerName}({playerID}) joined the lobby!");
 
-        // Èç¹ûÊÇ¿Í»§£¬´ÓLobbyÊı¾İÖĞ»ñÈ¡HostAddress
+        // å¦‚æœæ˜¯å®¢æˆ·ï¼Œä»Lobbyæ•°æ®ä¸­è·å–HostAddress
         string hostAddress = SteamMatchmaking.GetLobbyData(
             new CSteamID(callback.m_ulSteamIDLobby),
             HostAddressKey);
 
-        // ÔÚMirrorÖĞÉèÖÃHostAddress£¬¿ªÆô¿Í»§¶Ë£¬¿Í»§¶Ë½«Ê¹ÓÃSteam´«ÊäÁ¬½Óµ½¸ÃµØÖ·
+        // åœ¨Mirrorä¸­è®¾ç½®HostAddressï¼Œå¼€å¯å®¢æˆ·ç«¯ï¼Œå®¢æˆ·ç«¯å°†ä½¿ç”¨Steamä¼ è¾“è¿æ¥åˆ°è¯¥åœ°å€
         networkManager.networkAddress = hostAddress;
         networkManager.StartClient();
 
         hostBtn.SetActive(false);
+
+        uISteamLobby.AddNewPlayerDisplay(SteamUser.GetSteamID(), playerName);
     }
 }

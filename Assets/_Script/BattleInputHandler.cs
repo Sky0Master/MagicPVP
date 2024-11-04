@@ -11,6 +11,7 @@ public class BattleInputHandler : NetworkBehaviour
         magicHandler = GetComponent<MagicHandler>();
         
     }
+    
     void Update()
     {
         if(!isLocalPlayer) return;

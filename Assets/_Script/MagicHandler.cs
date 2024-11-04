@@ -7,7 +7,7 @@ public class MagicHandler : NetworkBehaviour
     List<Magic> magicList = new List<Magic>();
     public Magic currentMagic;
 
-    [Command]
+    //[Command]
     public void AddMagic(Magic magic)
     {
        magicList.Add(magic);
@@ -16,7 +16,7 @@ public class MagicHandler : NetworkBehaviour
             currentMagic = magic;
        }
     }
-    [Command]
+    //[Command]
     public void UseMagic()
     {
         if (currentMagic == null)
@@ -26,6 +26,7 @@ public class MagicHandler : NetworkBehaviour
         currentMagic.Use();
 
     }
+    
     // Update is called once per frame
     void Update()
     {
