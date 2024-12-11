@@ -4,13 +4,18 @@ using Mirror;
 using UnityEngine;
 using VinoUtility;
 
-public class NetPlayerMovement : MonoBehaviour
+public class NetPlayerMovement : NetworkBehaviour
 {
     public float moveSpeed = 8f;
     Rigidbody2D _rig;
     public PlayerInput playerInput;
     private void Start() {
+        if(!isLocalPlayer)
+        {
+            this.enabled = false;
+        }
         _rig = GetComponent<Rigidbody2D>();
+        
     }
     void Update() //inputs
     {
