@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using VinoUtility;
 
+
 public class ShootProjectile2D : MonoBehaviour
 {
     [SerializeField]
@@ -22,17 +23,17 @@ public class ShootProjectile2D : MonoBehaviour
 
     [Header("Load from Module")]
     public ShootModule2D shootData;
-    public Projectile2D Shoot(Vector2 direction)
+    public NetProjectile2D Shoot(Vector2 direction)
     {
         if(Time.time <  _lastShootTime + shootCoolTime) return null;
-        var obj = Instantiate(projectilePrefab);
+        var obj = NetGameObjectManager.Instance.Generate(projectilePrefab);
         obj.transform.position = GetFirePos();
-        var projectile = obj.GetComponent<Projectile2D>();
+        var projectile = obj.GetComponent<NetProjectile2D>();
         projectile.Launch(shootSpeed * direction);
         _lastShootTime = Time.time;
         return projectile;
     }
-    public Projectile2D ShootAt(Vector2 targetPos)
+    public NetProjectile2D ShootAt(Vector2 targetPos)
     {
         var firePos = GetFirePos();
         Vector2 dir = (targetPos - firePos).normalized;

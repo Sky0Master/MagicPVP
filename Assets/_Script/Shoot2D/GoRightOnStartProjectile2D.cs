@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoRightOnStartProjectile2D : Projectile2D
+public class GoRightOnStartProjectile2D : NetProjectile2D
 {
     public bool randomSpeed = false;
     public float minSpeed = 1f;

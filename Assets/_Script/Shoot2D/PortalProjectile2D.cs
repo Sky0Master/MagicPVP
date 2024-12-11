@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalProjectile2D : Projectile2D
+public class PortalProjectile2D : NetProjectile2D
 {
     public GameObject portalObj;
     public SpriteRenderer bulletSpr;

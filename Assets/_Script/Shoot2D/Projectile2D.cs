@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Projectile2D : MonoBehaviour
+public class NetProjectile2D : MonoBehaviour
 {
     public float speed = 1f;
     public float lifeTime = 3f;
