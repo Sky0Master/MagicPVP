@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9094224491901039723}
   - component: {fileID: 3293345702210806030}
-  - component: {fileID: 5282762967177923008}
   - component: {fileID: 7206405061259058023}
   - component: {fileID: 2257282232602887320}
   - component: {fileID: 6247988192439901946}
+  - component: {fileID: 1420065266966728084}
   m_Layer: 0
   m_Name: NormalProjectile
   m_TagString: Untagged
@@ -88,23 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5282762967177923008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4169746679326670457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d9f9d15ede0b8640aff135248b62aa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  speed: 1
-  duration: 3
 --- !u!50 &7206405061259058023
 Rigidbody2D:
   serializedVersion: 4
@@ -165,3 +148,17 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   teamId: 0
+--- !u!114 &1420065266966728084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4169746679326670457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2c5690aed684248bb505540660a936, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  lifeTime: 3

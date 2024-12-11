@@ -6,7 +6,7 @@ namespace VinoUtility{
 public class CameraFollow : MonoBehaviour
 {
     public Transform Target;
-    public string TargetTag = "Player";
+    public string TargetTag = "PlayerCameraPivot";
     // public float SmoothTime;
     [SerializeField]
     float SmoothSpeed = 0.01f;
@@ -16,6 +16,7 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         _cam = GetComponent<Camera>();
+        Time.fixedDeltaTime = 0.01f;
     }
 
     IEnumerator<WaitForSeconds> FocusOn(Transform focusTarget, float switchDuration, float focusDuration, float zoomSize, bool isFollow)
@@ -80,7 +81,7 @@ public class CameraFollow : MonoBehaviour
     {
         _isFollow = false;
     }
-    private void LateUpdate() {
+    private void FixedUpdate() {
         if(Target == null){
             Target = GameObject.FindWithTag(TargetTag)?.transform;
         }

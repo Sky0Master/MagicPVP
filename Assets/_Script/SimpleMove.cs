@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
+using VinoUtility;
 
-public class Movement : MonoBehaviour
+public class NetPlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 8f;
-
-    public Rigidbody2D rb;
-
-    float inputHorizontal;
-    float inputVertical;
-
+    Rigidbody2D _rig;
+    public PlayerInput playerInput;
+    private void Start() {
+        _rig = GetComponent<Rigidbody2D>();
+    }
     void Update() //inputs
     {
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        inputVertical = Input.GetAxisRaw("Vertical");
-        rb.velocity = new Vector2(inputHorizontal, inputVertical).normalized * moveSpeed;
+        _rig.velocity = playerInput.AxisRaw().normalized * moveSpeed;
     }
 }
