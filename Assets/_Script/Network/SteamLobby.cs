@@ -65,6 +65,9 @@ public class SteamLobby : MonoBehaviour
             SteamUser.GetSteamID().ToString());
 
         uISteamLobby.AddNewPlayerDisplay(SteamUser.GetSteamID(), SteamFriends.GetPersonaName());
+        
+        // networkManager.StartClient();
+        // NetworkClient.AddPlayer();
         //Debug.LogError("Lobby created.");
     }
 
@@ -98,5 +101,8 @@ public class SteamLobby : MonoBehaviour
         hostBtn.SetActive(false);
 
         uISteamLobby.AddNewPlayerDisplay(SteamUser.GetSteamID(), playerName);
+
+        //添加client角色
+        NetworkClient.AddPlayer();
     }
 }

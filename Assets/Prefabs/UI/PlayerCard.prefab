@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 8213130691934872624}
   - component: {fileID: 1937152803261886246}
   - component: {fileID: 3240705602473143896}
-  - component: {fileID: 8267383307170963153}
+  - component: {fileID: 5914170507659607944}
   m_Layer: 5
   m_Name: PlayerCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8213130691934872624
 RectTransform:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8267383307170963153
+--- !u!114 &5914170507659607944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
