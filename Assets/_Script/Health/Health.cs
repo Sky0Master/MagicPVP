@@ -90,7 +90,7 @@ namespace VinoUtility.Gameplay
             {
                 _isDead = true;
                 OnDie?.Invoke();
-                Destroy(gameObject);
+                NetGameObjectManager.Instance.Delete(GetComponent<Mirror.NetworkIdentity>());
             }
         }
 

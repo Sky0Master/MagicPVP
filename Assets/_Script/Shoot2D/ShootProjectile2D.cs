@@ -26,7 +26,7 @@ public class ShootProjectile2D : MonoBehaviour
     public NetProjectile2D Shoot(Vector2 direction)
     {
         if(Time.time <  _lastShootTime + shootCoolTime) return null;
-        var obj = NetGameObjectManager.Instance.Generate(projectilePrefab);
+        var obj = NetGameObjectManager.Instance.Create(projectilePrefab);
         obj.transform.position = GetFirePos();
         var projectile = obj.GetComponent<NetProjectile2D>();
         projectile.Launch(shootSpeed * direction);

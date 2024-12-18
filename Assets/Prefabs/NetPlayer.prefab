@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 4918658538953953000}
   m_Layer: 0
   m_Name: NetPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1e0d80fe7ac4443a7f2717e3ceed5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 4169746679326670457, guid: 00fabf9ec6029074bbb0f0a1c3df0725, type: 3}
+  projectilePrefab: {fileID: 5673144311385283231, guid: b6405455eed8f1041b309fc55bf3d2f0, type: 3}
   shootSpeed: 50
   shootCoolTime: 0.5
   fireOffset: {x: 0, y: 0}

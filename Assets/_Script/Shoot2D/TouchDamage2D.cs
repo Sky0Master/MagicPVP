@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Mirror;
 
 namespace VinoUtility.Gameplay
 {
 public class TouchDamage2D : MonoBehaviour
 {
     public int damage;
-    public bool destroyAfterTouch = true;
     public List<string> exceptTags;
-
     public GameObject damageSource;
-    
+
+    [Header("Touch Event")]
+    public UnityEvent touchEvent;
+    public bool destroyAfterTouch = true;
+    public float destroyDelay = 0.0f;
+
+
+
     private void OnTriggerEnter2D(Collider2D other) {
         if(exceptTags.Contains(other.tag))
             return;
@@ -26,7 +33,11 @@ public class TouchDamage2D : MonoBehaviour
             damageSource = gameObject;
         health.TakeDamage(damage, damageSource);
         if(destroyAfterTouch)
-            Destroy(gameObject);
+            Invoke("Destruct", destroyDelay);
+    }
+    public void Destruct()
+    {
+        NetGameObjectManager.Instance.Delete(GetComponent<NetworkIdentity>());
     }
 }
 }

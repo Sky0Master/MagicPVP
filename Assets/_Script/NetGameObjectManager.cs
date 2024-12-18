@@ -14,7 +14,7 @@ public class NetGameObjectManager : NetworkBehaviour
     }
     public bool isNetworkGame;
     // Start is called before the first frame update
-    public GameObject Generate(GameObject prefab)
+    public GameObject Create(GameObject prefab)
     {
         var go = Instantiate(prefab);
         if(isNetworkGame)
@@ -22,5 +22,9 @@ public class NetGameObjectManager : NetworkBehaviour
             NetworkServer.Spawn(go);
         }
         return go;
+    }
+    public void Delete(NetworkIdentity identity)
+    {
+        NetworkServer.Destroy(identity.gameObject);
     }
 }
